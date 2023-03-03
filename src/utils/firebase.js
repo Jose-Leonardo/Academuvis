@@ -1,19 +1,20 @@
 const firebase = require('firebase/app')
+//*1-accede a los datos almacenados 2-Quiero publicar en la miltimedia 3-nos permite la referencia 4-ayuda hacer una referencia
 const { getStorage, uploadBytes, ref, getDownloadURL } = require('firebase/storage')
 
 const config = require('../../config').api.firebase
 
-const firebaseApp = firebase.initializeApp(config)
+const firebaseApp = firebase.initializeApp(config) //* la conexion con firebase
 
 const storage = getStorage(firebaseApp)
 
 //? peliculas
 
 const addToFirebaseMovieVideo = async (file) => {
-    const movieRef = ref(storage, `movieVideos/${Date.now()}-${file.originalname}`)
+    const movieRef = ref(storage, `movieVideos/${Date.now()}-${file.originalname}`)//*ruta donde se va aguardar el archivo
 
-    await uploadBytes(movieRef, file.buffer)
-    const movieUrl = await getDownloadURL(movieRef)
+    await uploadBytes(movieRef, file.buffer)//* publicar el archivo
+    const movieUrl = await getDownloadURL(movieRef) //*obtiene la url del archivo para entrar en el
     return movieUrl
 }
 
